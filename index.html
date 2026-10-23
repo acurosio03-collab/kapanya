@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#14062e">
+<title>Naura's Little Universe 💗</title>
+<style>
+:root{--pink:#ff5fb0;--pink2:#ff9ed2;--purple:#8b5cf6;--night:#0d0524;--glass:rgba(255,255,255,.09);--line:rgba(255,160,215,.35)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--night);color:#fff;font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;color:inherit}
+.bg{position:fixed;inset:0;background:
+ radial-gradient(ellipse at 20% 15%,rgba(139,92,246,.55),transparent 55%),
+ radial-gradient(ellipse at 85% 30%,rgba(255,95,176,.4),transparent 55%),
+ radial-gradient(ellipse at 50% 100%,rgba(40,70,180,.55),transparent 60%),
+ linear-gradient(180deg,#14062e,#0d0524 60%,#080319);background-size:140% 140%;animation:neb 22s ease-in-out infinite alternate}
+@keyframes neb{to{background-position:100% 100%}}
+#fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:30}
+.fh{position:absolute;bottom:-30px;animation:rise linear forwards;opacity:.0;will-change:transform}
+@keyframes rise{10%{opacity:.9}100%{transform:translateY(-110vh) translateX(var(--dx));opacity:0}}
+.sp{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 8px 2px var(--pink2);animation:spark .9s ease-out forwards}
+@keyframes spark{to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}}
+/* ===== INTRO ===== */
+#intro{position:fixed;inset:0;z-index:5}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.nogl #gl{display:none}
+#cssheart{display:none;position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font-size:min(60vw,320px);line-height:1;filter:drop-shadow(0 0 40px #ff3d9a);animation:cspin 6s ease-in-out infinite}
+.nogl #cssheart{display:block}
+@keyframes cspin{50%{transform:translate(-50%,-56%) rotateY(30deg)}}
+.stage-txt{position:absolute;left:0;right:0;bottom:calc(14% + env(safe-area-inset-bottom));text-align:center;padding:0 22px;pointer-events:none}
+.stage-txt>div{opacity:0}
+.stage-txt .show{animation:pop .9s cubic-bezier(.2,1.5,.4,1) forwards}
+@keyframes pop{0%{opacity:0;transform:translateY(18px) scale(.85)}70%{opacity:1;transform:translateY(-4px) scale(1.04)}100%{opacity:1;transform:none}}
+#t1{font-weight:900;letter-spacing:.06em;font-size:clamp(18px,5.4vw,34px);text-shadow:0 0 18px #ff5fb0,0 0 40px #8b5cf6;text-transform:uppercase}
+#t2{margin-top:10px;font-weight:800;font-size:clamp(13px,3.8vw,20px);color:#ffd6ec;letter-spacing:.12em;text-shadow:0 0 12px #ff5fb0}
+#t3{margin-top:8px;font-size:clamp(12px,3.3vw,16px);color:#e8d9ff;opacity:.9}
+#start{position:absolute;left:50%;bottom:calc(4.5% + env(safe-area-inset-bottom));transform:translateX(-50%) scale(.6);opacity:0;pointer-events:none;
+ padding:16px 28px;border-radius:999px;font-weight:900;font-size:clamp(14px,4vw,18px);letter-spacing:.04em;white-space:nowrap;
+ background:linear-gradient(180deg,#ff8fcb,#ff3d9a 55%,#d81b7a);box-shadow:0 6px 0 #8f0f52,0 10px 30px rgba(255,61,154,.6),inset 0 2px 0 rgba(255,255,255,.55);transition:.5s cubic-bezier(.2,1.6,.4,1)}
+#start.on{opacity:1;transform:translateX(-50%) scale(1);pointer-events:auto;animation:bob 2s ease-in-out infinite .6s}
+@keyframes bob{50%{transform:translateX(-50%) translateY(-5px) scale(1.03)}}
+#start:active{transform:translateX(-50%) translateY(5px) scale(.98);box-shadow:0 1px 0 #8f0f52,0 4px 14px rgba(255,61,154,.6)}
+.top-btns{position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;display:flex;gap:8px;z-index:40}
+.chip{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:9px 14px;border-radius:999px;font-size:13px;font-weight:700}
+#skip{position:fixed;top:calc(12px + env(safe-area-inset-top));left:12px;z-index:40}
+#peek{position:absolute;left:50%;top:44%;width:84px;height:84px;margin:-100px 0 0 40px;pointer-events:none;transform:translateX(60px) scale(.2) rotate(30deg);opacity:0;transition:1s cubic-bezier(.2,1.5,.4,1)}
+#peek.on{transform:translateX(min(34vw,120px)) scale(1) rotate(14deg);opacity:1}
+#peek svg{width:100%;height:100%;animation:wig 2.4s ease-in-out infinite;filter:drop-shadow(0 0 12px #ff5fb0)}
+@keyframes wig{50%{transform:rotate(-8deg) translateY(-4px)}}
+.eye{transform-origin:center;transform-box:fill-box;animation:blink 4s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+#flash{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:0;background:radial-gradient(circle,#fff 0,#ffb3e0 30%,#a55bff 70%,#2a0a5e);transition:opacity .6s}
+#flash.on{opacity:1}
+#portal{position:fixed;inset:0;z-index:45;pointer-events:none;opacity:0;display:grid;place-items:center;overflow:hidden}
+#portal i{position:absolute;width:140vmax;height:140vmax;border-radius:50%;background:conic-gradient(from 0deg,#ff3d9a,#8b5cf6,#27c5ff,#ff9ed2,#ff3d9a);
+ -webkit-mask:radial-gradient(circle,transparent 0 8%,#000 9% 100%);mask:radial-gradient(circle,transparent 0 8%,#000 9% 100%);transform:scale(.05);animation:port 1.3s ease-in forwards,rot 1.3s linear infinite}
+#portal b{position:absolute;width:60vmin;height:60vmin;border-radius:50%;border:3px solid #fff;box-shadow:0 0 40px #fff,inset 0 0 40px #ff9ed2;transform:scale(.1);animation:ring 1.3s ease-in forwards}
+#portal.on{opacity:1}
+@keyframes port{to{transform:scale(1)}}@keyframes rot{to{rotate:360deg}}@keyframes ring{to{transform:scale(4);opacity:0}}
+/* ===== GAME ===== */
+#game{position:fixed;inset:0;z-index:10;display:none;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#game.on{display:block}
+.wrap{max-width:520px;margin:0 auto;padding:calc(64px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom))}
+.hud{position:fixed;left:0;right:0;top:0;z-index:35;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;display:none;gap:10px;align-items:center;background:linear-gradient(180deg,rgba(13,5,36,.9),transparent)}
+.hud.on{display:flex}
+.hud .lv{font-weight:900;font-size:12px;letter-spacing:.1em;color:var(--pink2);white-space:nowrap}
+.bar{flex:1;height:9px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff5fb0,#8b5cf6);border-radius:9px;transition:width .6s}
+.hud .xp{font-weight:800;font-size:12px;white-space:nowrap}
+.hud #sndG{margin-left:4px;padding:6px 10px}
+.screen{background:var(--glass);border:1px solid var(--line);border-radius:26px;padding:22px 18px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.t1{animation:inUp .7s cubic-bezier(.2,1.2,.4,1)}.t2{animation:inZoom .7s cubic-bezier(.2,1.3,.4,1)}.t3{animation:inFlip .8s ease}.t4{animation:inSwing .8s cubic-bezier(.2,1.3,.4,1)}.t5{animation:inBurst .9s cubic-bezier(.2,1.4,.4,1)}
+@keyframes inUp{from{opacity:0;transform:translateY(60px)}}
+@keyframes inZoom{from{opacity:0;transform:scale(.4)}}
+@keyframes inFlip{from{opacity:0;transform:perspective(700px) rotateY(-80deg)}}
+@keyframes inSwing{from{opacity:0;transform:translateX(90px) rotate(8deg)}}
+@keyframes inBurst{from{opacity:0;transform:scale(1.7);filter:blur(12px)}}
+.badge{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.14em;color:#ffd6ec;background:rgba(255,95,176,.2);border:1px solid var(--line);padding:5px 11px;border-radius:99px;margin-bottom:12px}
+h2{margin:0 0 6px;font-size:clamp(20px,5.6vw,26px);line-height:1.25}
+.q{font-size:clamp(17px,4.8vw,21px);font-weight:700;line-height:1.4;margin:6px 0 16px}
+.sub{opacity:.85;font-size:14px;line-height:1.55;margin:0 0 14px}
+.opt{display:block;width:100%;text-align:left;margin:9px 0;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);font-size:15px;font-weight:600;transition:.2s}
+.opt:active{transform:scale(.98)}.opt:hover{background:rgba(255,95,176,.25)}
+.opt.ok{background:rgba(70,220,150,.3);border-color:#5df0b0}.opt.no{background:rgba(255,80,110,.28);border-color:#ff7b95}
+.opt:disabled{cursor:default}
+.fb{margin-top:12px;padding:12px 14px;border-radius:14px;background:rgba(0,0,0,.28);font-size:14px;line-height:1.5;animation:inUp .4s}
+.btn{display:inline-block;margin-top:14px;padding:14px 24px;border-radius:999px;font-weight:900;font-size:15px;background:linear-gradient(180deg,#ff8fcb,#ff3d9a 60%,#d81b7a);box-shadow:0 5px 0 #8f0f52,0 8px 22px rgba(255,61,154,.45);transition:.15s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #8f0f52}
+.btn.alt{background:linear-gradient(180deg,#9b7bff,#6a3fe0);box-shadow:0 5px 0 #3b1f93,0 8px 22px rgba(139,92,246,.45)}
+.btn.wa{background:linear-gradient(180deg,#3fe27f,#16b055);box-shadow:0 5px 0 #0b6d33,0 8px 22px rgba(30,200,100,.4)}
+.btn.ghost{background:rgba(255,255,255,.12);box-shadow:none;border:1px solid var(--line)}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.scan{position:relative;width:200px;height:200px;margin:14px auto;border-radius:50%;display:grid;place-items:center;font-size:48px;font-weight:900;background:radial-gradient(circle,rgba(255,95,176,.35),transparent 70%);border:2px solid var(--line)}
+.scan::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:3px solid transparent;border-top-color:#ff9ed2;animation:rot2 1s linear infinite}
+.scan.done::after{animation:none;border-color:#5df0b0}
+@keyframes rot2{to{transform:rotate(360deg)}}
+.meter{margin:10px 0}.meter span{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:4px}
+.boss{display:flex;align-items:center;gap:12px;margin-bottom:12px}.boss .face{font-size:44px;animation:wig 2s infinite}
+.hp{flex:1;height:14px;background:rgba(255,255,255,.14);border-radius:9px;overflow:hidden}.hp i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#ff3d6e,#ff9ed2);transition:width .7s}
+label.f{display:block;margin:14px 0 6px;font-size:13px;font-weight:800;color:#ffd6ec;letter-spacing:.04em}
+input,textarea{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.28);color:#fff;font:inherit;font-size:15px;color-scheme:dark}
+input::placeholder{color:rgba(255,255,255,.5)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chips button{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);font-size:14px;font-weight:600}
+.chips button.sel{background:linear-gradient(180deg,#ff8fcb,#ff3d9a);border-color:#fff}
+.report{background:linear-gradient(160deg,rgba(255,95,176,.28),rgba(139,92,246,.28));border:2px dashed var(--pink2);border-radius:20px;padding:18px;margin-top:12px}
+.report h3{margin:0 0 10px;text-align:center;letter-spacing:.08em;font-size:17px}
+.report dl{margin:0}.report dt{font-size:11px;font-weight:900;letter-spacing:.1em;color:var(--pink2);margin-top:10px}.report dd{margin:2px 0 0;font-size:15px;font-weight:600;word-break:break-word}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,30px);background:#fff;color:#4a0d33;padding:11px 18px;border-radius:99px;font-weight:800;font-size:14px;opacity:0;transition:.35s;z-index:80;pointer-events:none;max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition-duration:.01s!important}.bg{animation:none}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div id="fx"></div>
+
+<!-- INTRO -->
+<div id="intro">
+  <canvas id="gl"></canvas>
+  <div id="cssheart">💗</div>
+  <div id="peek" aria-hidden="true">
+    <svg viewBox="0 0 100 100"><defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9ed2"/><stop offset="1" stop-color="#ff2f8f"/></linearGradient></defs>
+      <path d="M50 90C12 62 6 40 12 27 20 10 42 12 50 30 58 12 80 10 88 27 94 40 88 62 50 90Z" fill="url(#hg)" stroke="#fff" stroke-width="3"/>
+      <g class="eye"><ellipse cx="36" cy="46" rx="6" ry="8" fill="#3a0a2a"/><circle cx="38" cy="43" r="2.4" fill="#fff"/></g>
+      <g class="eye"><ellipse cx="64" cy="46" rx="6" ry="8" fill="#3a0a2a"/><circle cx="66" cy="43" r="2.4" fill="#fff"/></g>
+      <path d="M41 60Q50 70 59 60" stroke="#3a0a2a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="26" cy="58" rx="6" ry="3.5" fill="#ff5f8f" opacity=".6"/><ellipse cx="74" cy="58" rx="6" ry="3.5" fill="#ff5f8f" opacity=".6"/>
+    </svg>
+  </div>
+  <div class="stage-txt">
+    <div id="t1">Welcome to Naura's Little Universe 💗</div>
+    <div id="t2">✨ SPECIAL LEVEL UNLOCKED: NAURA ✨</div>
+    <div id="t3">Dibuat oleh GERDY dengan sedikit keberanian dan banyak ide absurd. WKWK 😭</div>
+  </div>
+  <button id="start">MASUK KE DUNIA NAURA 💗</button>
+</div>
+<button class="chip" id="skip">Lewati intro ⏭</button>
+<div class="top-btns"><button class="chip" id="snd" aria-label="Musik">🔇 Musik</button></div>
+
+<div id="flash"></div>
+<div id="portal"><i></i><b></b></div>
+
+<!-- GAME -->
+<div class="hud" id="hud"><span class="lv" id="lv">LEVEL 1/5</span><div class="bar"><i id="pb"></i></div><span class="xp" id="xp">⭐ 0</span><button class="chip" id="sndG">🔇</button></div>
+<div id="game"><div class="wrap" id="screen"></div></div>
+<div id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+var WA="6283185954674";
+var $=function(s){return document.querySelector(s)};
+var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+var fx=$("#fx");
+
+/* ---------- partikel DOM (ringan) ---------- */
+function floatHeart(){
+  if(document.hidden||reduce||fx.childElementCount>14)return;
+  var s=document.createElement("span");s.className="fh";
+  s.textContent=["💗","💖","💕","💜","✨"][Math.random()*5|0];
+  s.style.left=(Math.random()*96)+"%";s.style.fontSize=(12+Math.random()*18)+"px";
+  s.style.setProperty("--dx",((Math.random()-.5)*80)+"px");
+  s.style.animationDuration=(5+Math.random()*4)+"s";
+  fx.appendChild(s);setTimeout(function(){s.remove()},9500);
+}
+setInterval(floatHeart,800);
+function burst(x,y,n){
+  if(reduce)n=Math.min(n,6);
+  for(var i=0;i<n;i++){var p=document.createElement("span");p.className="sp";
+    var a=Math.random()*6.283,d=30+Math.random()*80;
+    p.style.left=x+"px";p.style.top=y+"px";
+    p.style.setProperty("--x",Math.cos(a)*d+"px");p.style.setProperty("--y",Math.sin(a)*d+"px");
+    fx.appendChild(p);setTimeout(function(q){q.remove()}.bind(null,p),950);}
+}
+function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){t.classList.remove("on")},2400)}
+
+/* ---------- musik (WebAudio, hanya setelah interaksi) ---------- */
+var AC=null,musicOn=false,timer=null,step=0;
+var notes=[523.25,659.25,783.99,659.25,587.33,698.46,880,698.46,523.25,659.25,783.99,1046.5,880,783.99,659.25,587.33];
+function tone(f,t,d,v,type){var o=AC.createOscillator(),g=AC.createGain();o.type=type||"sine";o.frequency.value=f;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+  o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d+.05)}
+function tick(){if(!AC||!musicOn)return;var t=AC.currentTime+.05;tone(notes[step%16],t,.7,.06,"triangle");
+  if(step%4===0)tone(notes[step%16]/4,t,1.4,.05,"sine");step++}
+function setMusic(on){
+  if(on){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume();}catch(e){toast("Musik tidak didukung di perangkat ini");return}
+    musicOn=true;clearInterval(timer);timer=setInterval(tick,420);}
+  else{musicOn=false;clearInterval(timer)}
+  var l=on?"🔊 Musik":"🔇 Musik";$("#snd").textContent=l;$("#sndG").textContent=on?"🔊":"🔇";
+}
+function sfx(f){if(!AC||!musicOn)return;var t=AC.currentTime;tone(f||880,t,.25,.08,"sine");tone((f||880)*1.5,t+.08,.3,.06,"sine")}
+$("#snd").onclick=$("#sndG").onclick=function(){setMusic(!musicOn)};
+
+/* ---------- THREE.JS INTRO ---------- */
+var gl={ok:false,run:false,phase:0,spin:1,camZ:9,scaleT:1,t:0};
+var renderer,scene,camera,heart,rings,orbiters=[],stars,hstars,glow,comet,cometTrail=[],mini,last=0,raf=0;
+function heartTex(){var c=document.createElement("canvas");c.width=c.height=64;var x=c.getContext("2d");x.fillStyle="#fff";x.font="48px serif";x.textAlign="center";x.textBaseline="middle";x.fillText("♥",32,34);return new THREE.CanvasTexture(c)}
+function glowTex(col){var c=document.createElement("canvas");c.width=c.height=128;var x=c.getContext("2d");var g=x.createRadialGradient(64,64,0,64,64,64);g.addColorStop(0,col);g.addColorStop(1,"rgba(0,0,0,0)");x.fillStyle=g;x.fillRect(0,0,128,128);return new THREE.CanvasTexture(c)}
+function initGL(){
+  try{
+    if(!window.THREE)throw 0;
+    var cv=$("#gl");
+    renderer=new THREE.WebGLRenderer({canvas:cv,antialias:false,alpha:true,powerPreference:"low-power"});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));
+    scene=new THREE.Scene();
+    camera=new THREE.PerspectiveCamera(50,1,.1,200);camera.position.set(0,0,9);
+    scene.add(new THREE.AmbientLight(0xffb3de,.7));
+    var d=new THREE.DirectionalLight(0xffffff,1.1);d.position.set(4,6,8);scene.add(d);
+    var p1=new THREE.PointLight(0xff3d9a,2,30);p1.position.set(-5,-2,5);scene.add(p1);
+    var p2=new THREE.PointLight(0x8b5cf6,2,30);p2.position.set(5,3,-3);scene.add(p2);
+    // bentuk hati
+    var s=new THREE.Shape(),x=0,y=0;
+    s.moveTo(x+.25,y+.25);s.bezierCurveTo(x+.25,y+.25,x+.2,y,x,y);s.bezierCurveTo(x-.3,y,x-.3,y+.35,x-.3,y+.35);
+    s.bezierCurveTo(x-.3,y+.55,x-.15,y+.77,x+.25,y+.95);s.bezierCurveTo(x+.6,y+.77,x+.8,y+.55,x+.8,y+.35);
+    s.bezierCurveTo(x+.8,y+.35,x+.8,y,x+.5,y);s.bezierCurveTo(x+.35,y,x+.25,y+.25,x+.25,y+.25);
+    var geo=new THREE.ExtrudeGeometry(s,{depth:.28,bevelEnabled:true,bevelThickness:.14,bevelSize:.12,bevelSegments:6,curveSegments:14});
+    geo.center();
+    var mat=new THREE.MeshPhysicalMaterial({color:0xff4fa3,metalness:.15,roughness:.18,clearcoat:1,clearcoatRoughness:.08,emissive:0x6a0a44,emissiveIntensity:.55});
+    heart=new THREE.Mesh(geo,mat);heart.scale.setScalar(3.4);scene.add(heart);
+    // glow
+    glow=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex("rgba(255,95,176,.75)"),blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));
+    glow.scale.set(11,11,1);glow.position.z=-1.5;scene.add(glow);
+    // cincin
+    rings=new THREE.Group();
+    [[3.4,0xff9ed2,.08,1.2,.3],[4.2,0x8fc9ff,.05,.5,-.4]].forEach(function(r){
+      var m=new THREE.Mesh(new THREE.TorusGeometry(r[0],r[2],8,80),new THREE.MeshBasicMaterial({color:r[1],transparent:true,opacity:.75}));
+      m.rotation.x=r[3];m.rotation.y=r[4];m.userData.sp=r[4]>0?.4:-.3;rings.add(m)});
+    scene.add(rings);
+    // love kecil mengorbit
+    var ht=heartTex();
+    for(var i=0;i<6;i++){
+      var piv=new THREE.Group();piv.rotation.x=(Math.random()-.5)*1.2;piv.rotation.z=Math.random()*3;
+      var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:ht,color:i%2?0xffd1ea:0xff6fb8,transparent:true,depthWrite:false}));
+      sp.scale.setScalar(.45+Math.random()*.3);sp.position.x=3.2+i*.35;piv.add(sp);piv.userData.sp=.5+Math.random()*.9;
+      scene.add(piv);orbiters.push(piv);}
+    // bintang
+    var N=380,pos=new Float32Array(N*3);
+    for(i=0;i<N;i++){var r=25+Math.random()*50,a=Math.random()*6.283,b=Math.acos(2*Math.random()-1);
+      pos[i*3]=r*Math.sin(b)*Math.cos(a);pos[i*3+1]=r*Math.sin(b)*Math.sin(a);pos[i*3+2]=-Math.abs(r*Math.cos(b))-5}
+    var sg=new THREE.BufferGeometry();sg.setAttribute("position",new THREE.BufferAttribute(pos,3));
+    stars=new THREE.Points(sg,new THREE.PointsMaterial({color:0xffffff,size:.28,transparent:true,opacity:.9,depthWrite:false}));scene.add(stars);
+    var HN=26,hp=new Float32Array(HN*3);
+    for(i=0;i<HN;i++){hp[i*3]=(Math.random()-.5)*34;hp[i*3+1]=(Math.random()-.5)*22;hp[i*3+2]=-8-Math.random()*14}
+    var hg=new THREE.BufferGeometry();hg.setAttribute("position",new THREE.BufferAttribute(hp,3));
+    hstars=new THREE.Points(hg,new THREE.PointsMaterial({map:ht,color:0xff9ed2,size:1.1,transparent:true,opacity:.9,depthWrite:false,alphaTest:.1}));scene.add(hstars);
+    // dua planet mini saling mengorbit
+    mini=new THREE.Group();mini.position.set(-6,3.2,-5);
+    var a1=new THREE.Mesh(new THREE.SphereGeometry(.6,18,14),new THREE.MeshStandardMaterial({color:0x7aa2ff,roughness:.5,emissive:0x1a2a66}));
+    var b1=new THREE.Mesh(new THREE.SphereGeometry(.28,14,12),new THREE.MeshStandardMaterial({color:0xffb3d9,roughness:.5,emissive:0x662244}));
+    var pv=new THREE.Group();b1.position.x=1.3;pv.add(b1);mini.add(a1);mini.add(pv);mini.userData.pv=pv;scene.add(mini);
+    // komet
+    var gt=glowTex("rgba(255,255,255,.95)");
+    for(i=0;i<7;i++){var c=new THREE.Sprite(new THREE.SpriteMaterial({map:gt,blending:THREE.AdditiveBlending,transparent:true,depthWrite:false,opacity:1-i/7,color:i?0xffa0d8:0xffffff}));
+      c.scale.setScalar(.9-i*.09);scene.add(c);cometTrail.push(c)}
+    comet={t:-1,next:3};
+    gl.ok=true;resize();
+  }catch(e){gl.ok=false;document.body.classList.add("nogl")}
+}
+function resize(){
+  if(!gl.ok)return;var w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;
+  gl.base=Math.min(16,9/Math.min(1,camera.aspect*1.25));camera.updateProjectionMatrix();
+}
+addEventListener("resize",resize);
+function loop(ts){
+  if(!gl.run)return;raf=requestAnimationFrame(loop);
+  var dt=Math.min(.05,(ts-last)/1000||.016);last=ts;gl.t+=dt;var t=gl.t;
+  var heartY=0;
+  if(gl.phase<2){heart.rotation.y+=dt*.55*gl.spin;heartY=Math.sin(t*1.2)*.12}
+  else{var tg=Math.sin(t*.9)*.55;heart.rotation.y+=(tg-heart.rotation.y)*Math.min(1,dt*3);heart.rotation.z=Math.sin(t*.7)*.07;heartY=Math.sin(t*1.5)*.45}
+  heart.position.y+=(heartY-heart.position.y)*Math.min(1,dt*4);
+  var sc=heart.scale.x;sc+=(gl.scaleT*3.4-sc)*Math.min(1,dt*2.2);heart.scale.setScalar(sc);
+  var cz=camera.position.z,tz=gl.camZ*(gl.phase===0?gl.base/9:1)*(gl.phase===1?1:1);
+  if(gl.phase===0)tz=gl.base;else if(gl.phase===1)tz=gl.base*.78;
+  camera.position.z=cz+(tz-cz)*Math.min(1,dt*(gl.phase===3?2.6:1.6));
+  glow.material.opacity=.7+Math.sin(t*2)*.2;glow.scale.setScalar(sc*3.2);
+  rings.children.forEach(function(m){m.rotation.z+=dt*m.userData.sp*gl.spin});
+  rings.visible=gl.phase<2;rings.position.y=heart.position.y;
+  orbiters.forEach(function(o,i){o.rotation.z+=dt*o.userData.sp*(gl.phase>=2?.6:1)});
+  stars.material.opacity=.65+Math.sin(t*3)*.3;stars.rotation.z+=dt*.004;hstars.material.opacity=.6+Math.sin(t*2.2+1)*.35;
+  mini.userData.pv.rotation.y+=dt*1.6;mini.userData.pv.rotation.z+=dt*.3;
+  // komet
+  if(comet.t<0){comet.next-=dt;if(comet.next<=0){comet.t=0}}
+  else{comet.t+=dt/2.6;if(comet.t>1.15){comet.t=-1;comet.next=4+Math.random()*3}
+    for(var i=0;i<cometTrail.length;i++){var u=Math.max(0,comet.t-i*.018);cometTrail[i].position.set(-16+u*32,7-u*11,-9);cometTrail[i].visible=comet.t<1.05}}
+  if(comet.t<0)cometTrail.forEach(function(c){c.visible=false});
+  renderer.render(scene,camera);
+}
+function startLoop(){if(!gl.ok||gl.run)return;gl.run=true;last=performance.now();raf=requestAnimationFrame(loop)}
+function stopLoop(){gl.run=false;cancelAnimationFrame(raf)}
+document.addEventListener("visibilitychange",function(){if(document.hidden)stopLoop();else if($("#intro").style.display!=="none")startLoop()});
+
+/* ---------- timeline intro ---------- */
+var tl=[],entering=false,introDone=false;
+function at(ms,fn){tl.push(setTimeout(fn,ms))}
+function show(id){var e=$(id);e.classList.add("show");var r=e.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,14)}
+function finalIntro(){
+  gl.phase=Math.max(gl.phase,2);gl.scaleT=1.25;
+  ["#t1","#t2","#t3"].forEach(function(i){$(i).classList.add("show")});
+  $("#peek").classList.add("on");$("#start").classList.add("on");$("#skip").style.display="none";introDone=true;
+}
+function runIntro(){
+  at(900,function(){$("#peek").classList.add("on")});
+  at(2600,function(){gl.phase=1;gl.spin=2.2});
+  at(3900,function(){gl.phase=2;gl.scaleT=1.25;gl.spin=1;if(gl.ok)heart.rotation.y=((heart.rotation.y+Math.PI)%(Math.PI*2))-Math.PI;burst(innerWidth/2,innerHeight*.42,26);sfx(660)});
+  at(4700,function(){show("#t1");sfx(784)});
+  at(5800,function(){show("#t2");sfx(988)});
+  at(6800,function(){show("#t3")});
+  at(7400,function(){$("#start").classList.add("on");$("#skip").style.display="none";introDone=true});
+}
+$("#skip").onclick=function(){tl.forEach(clearTimeout);if(gl.ok){heart.rotation.y=((heart.rotation.y+Math.PI)%(Math.PI*2))-Math.PI}finalIntro()};
+
+/* ---------- masuk portal ---------- */
+$("#start").onclick=function(){
+  if(entering)return;entering=true;setMusic(true);sfx(523);
+  var r=$("#start").getBoundingClientRect();burst(r.left+r.width/2,r.top,30);
+  gl.phase=3;gl.spin=14;gl.scaleT=2.4;gl.camZ=1.2;
+  setTimeout(function(){$("#flash").classList.add("on")},800);
+  setTimeout(function(){$("#portal").classList.add("on")},1300);
+  setTimeout(function(){
+    $("#intro").style.display="none";$("#skip").style.display="none";stopLoop();
+    $("#game").classList.add("on");$("#hud").classList.add("on");$("#snd").style.display="none";
+    $("#flash").classList.remove("on");level(1);
+  },2400);
+  setTimeout(function(){$("#portal").classList.remove("on");$("#portal").innerHTML=""},3500);
+};
+
+/* ---------- GAME ---------- */
+var S={xp:0,picks:0,flirt:0,score:0,form:{},day:0};
+function addXp(n){S.xp+=n;$("#xp").textContent="⭐ "+S.xp}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function frame(n,inner){
+  $("#lv").textContent="LEVEL "+n+"/5";$("#pb").style.width=((n-1)/5*100+8)+"%";
+  var sc=$("#screen");sc.innerHTML='<div class="screen t'+n+'">'+inner+"</div>";$("#game").scrollTop=0;
+  sc.firstChild.addEventListener("click",function(e){if(e.target.closest("button"))sfx(740)});
+}
+var LV={1:L1,2:L2,3:L3,4:L4,5:L5};
+function level(n){LV[n]()}
+
+/* LEVEL 1 — Brain Test */
+var Q1=[
+ {q:"Buah apa yang bikin GERDY senyum-senyum sendiri?",o:["Apel","Buah hati","Semangka"],a:1,ok:"Betul! Buah hati… dan jelas bukan buah yang dijual di pasar 😭",no:"Salah! Tapi tenang, GERDY tetap senyum kok. Jawabannya: buah hati 💗"},
+ {q:"Ikan apa yang paling bikin baper?",o:["Ikan lele (leleh hatiku)","Ikan paus","Ikan teri"],a:0,ok:"Yap, ikan lele — karena hati GERDY ikut leleh 🫠",no:"Hampir! Jawabannya ikan lele, soalnya bikin hati leleh 🐟"},
+ {q:"Apa bedanya GERDY sama sinyal WiFi?",o:["Sama-sama sering putus","Sama-sama dicari yang stabil","Sama-sama ada passwordnya"],a:1,ok:"Betul! Dua-duanya dicari kalau lagi butuh yang stabil. Cieee 📶",no:"Bukan itu 😭 Jawabannya: sama-sama dicari yang stabil 📶"},
+ {q:"Kalau cinta itu bahasa pemrograman, GERDY pilih…",o:["HTML, karena mau bangun sesuatu bareng kamu","Python, karena ularnya lucu","Error 404"],a:0,ok:"Tepat! HTML — GERDY kan tukang bangun website 🧱💻",no:"Salah, tapi lucu juga 😂 Jawabannya HTML: mau bangun sesuatu bareng kamu."},
+ {q:"Kenapa GERDY membuat website ini?",o:["Iseng doang","Disuruh dosen","Karena pengen bikin NAURA senyum"],a:2,ok:"Benar banget… sebenarnya semua jawaban boleh, tapi yang ini yang paling jujur 🥹",no:"Hmm, jawaban sebenarnya: pengen bikin NAURA senyum 🥹"}
+];
+function L1(){
+  var i=0;S.l1=0;
+  (function render(){
+    var q=Q1[i];
+    frame(1,'<span class="badge">🧠 BRAIN TEST</span><h2>Tebak-tebakan receh</h2><p class="sub">Soal '+(i+1)+' dari '+Q1.length+'. Jawab sebenar-benarnya, atau sebecanda-becandanya.</p><div class="q">'+q.q+'</div>'+
+      q.o.map(function(t,k){return'<button class="opt" data-k="'+k+'">'+t+'</button>'}).join("")+'<div id="fb"></div>');
+    document.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){
+      var k=+b.dataset.k,right=k===q.a;
+      document.querySelectorAll(".opt").forEach(function(x){x.disabled=true});
+      b.classList.add(right?"ok":"no");document.querySelectorAll(".opt")[q.a].classList.add("ok");
+      if(right){S.l1++;addXp(20)}else addXp(10);
+      var r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top,right?16:8);
+      $("#fb").innerHTML='<div class="fb">'+(right?q.ok:q.no)+'</div><button class="btn" id="nx">'+(i<Q1.length-1?"Lanjut ➜":"Selesai level 1 ➜")+"</button>";
+      $("#nx").onclick=function(){i++;if(i<Q1.length)render();else level(2)};
+    }});
+  })();
+}
+
+/* LEVEL 2 — Quick Choices */
+var Q2=[
+ {q:"Kalau lagi ngambek, kamu lebih suka…",o:[["Dibujuk pakai makanan","Strategi diterima. GERDY catat: makanan = jurus ampuh 📝"],["Dibiarkan sendiri dulu","Siap, GERDY kasih ruang. Tapi tetap standby di luar pintu 🚪"],["Dibikinin lagu receh","Waduh, suara GERDY mungkin bikin makin ngambek 😭"]]},
+ {q:"Jalan-jalan ideal versi kamu?",o:[["Kafe estetik","Kafe estetik, siap. GERDY bagian bayar kopi ☕"],["Pantai & angin sepoi","Wih romantis. GERDY bawa… sunscreen 🌊"],["Rebahan di rumah aja","Valid banget. Rebahan itu juga bentuk petualangan 🛌"]]},
+ {q:"Chat balasan GERDY yang paling kamu tunggu?",o:[["Balas cepat","Noted: GERDY akan cepat balas. Ya… mungkin 😅"],["Balas panjang","Siap, GERDY siapin paragraf 4 halaman 📚"],["Cukup stiker lucu","Stiker lucu = senjata rahasia 🎭"]]},
+ {q:"Makanan penutup terbaik?",o:[["Es krim","Es krim: dingin, manis, kayak… ah sudahlah 🍦"],["Martabak manis","Martabak! Pilihan berkelas, GERDY setuju 🥞"],["Boba","Boba! Sedotan besar, harapan besar 🧋"]]},
+ {q:"Kalau diajak ngobrol 3 jam, kamu…",o:[["Betah banget","Wah, GERDY siapkan 3 jam topik random 🎙️"],["Tergantung topiknya","Adil. Topik: kucing, kopi, dan teori konspirasi receh 🐈"],["Ngantuk di menit ke-5","Jujur banget 😭 GERDY siapkan kopi dobel ☕☕"]]}
+];
+function L2(){
+  var i=0;
+  (function render(){
+    var q=Q2[i];
+    frame(2,'<span class="badge">⚡ QUICK CHOICES</span><h2>Pilih yang paling kamu banget</h2><p class="sub">Pilihan '+(i+1)+' dari '+Q2.length+'. Tidak ada jawaban salah.</p><div class="q">'+q.q+'</div>'+
+      q.o.map(function(t,k){return'<button class="opt" data-k="'+k+'">'+t[0]+"</button>"}).join("")+'<div id="fb"></div>');
+    document.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){
+      var k=+b.dataset.k;document.querySelectorAll(".opt").forEach(function(x){x.disabled=true});b.classList.add("ok");
+      S.picks+=k+1;addXp(15);var r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top,12);
+      $("#fb").innerHTML='<div class="fb">'+q.o[k][1]+'</div><button class="btn" id="nx">'+(i<Q2.length-1?"Lanjut ➜":"Ke scanner kecocokan ➜")+"</button>";
+      $("#nx").onclick=function(){i++;if(i<Q2.length)render();else level(3)};
+    }});
+  })();
+}
+
+/* LEVEL 3 — Compatibility Scanner */
+function L3(){
+  frame(3,'<span class="badge">🔬 COMPATIBILITY SCANNER</span><h2>Tes kecocokan NAURA × GERDY</h2><p class="sub">Alat ini 100% ilmiah menurut GERDY (dan 0% menurut ilmuwan). Murni hiburan ya 😭</p><div class="scan" id="sc">?</div><div id="msg" class="sub" style="text-align:center">Tekan tombol untuk memulai pemindaian.</div><div style="text-align:center"><button class="btn" id="go">MULAI SCAN 💗</button></div><div id="res"></div>');
+  $("#go").onclick=function(){
+    $("#go").style.display="none";var steps=["Memindai tingkat kegemasan…","Menghitung kadar receh…","Mengukur potensi ngobrol 3 jam…","Menganalisis selera makan…","Hampir selesai…"],k=0,p=0;
+    var tm=setInterval(function(){p+=Math.random()*7+3;if(p>99)p=99;$("#sc").textContent=(p|0)+"%";$("#msg").textContent=steps[Math.min(k++,4)];sfx(500+p*5);
+      if(p>=99){clearInterval(tm);fin()}},420);
+  };
+  function fin(){
+    var pc=86+((S.picks*3+S.l1*2)%14);if(pc>99)pc=99;S.score=pc;addXp(40);
+    $("#sc").textContent=pc+"%";$("#sc").classList.add("done");$("#msg").textContent="Pemindaian selesai! Hasil: kecocokan "+pc+"% 🎉";
+    var r=$("#sc").getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,30);
+    var m=[["Kadar receh",Math.min(99,pc+2)],["Potensi ngobrol 3 jam",Math.max(80,pc-4)],["Kegemasan bersama",Math.min(99,pc+1)],["Kecocokan selera makan",Math.max(80,pc-7)]];
+    $("#res").innerHTML=m.map(function(x){return'<div class="meter"><span><b>'+x[0]+'</b><b>'+x[1]+'%</b></span><div class="bar"><i style="width:'+x[1]+'%"></i></div></div>'}).join("")+
+      '<div class="fb">Kesimpulan alat: kalian berpotensi cocok ngobrol, makan, dan ketawa bareng. Selebihnya… kita buktikan di dunia nyata 😳<br><small style="opacity:.7">*hasil hiburan, bukan ramalan jodoh.</small></div><div style="text-align:center"><button class="btn" id="nx">Lanjut ke Flirting Battle ➜</button></div>';
+    setTimeout(function(){document.querySelectorAll(".meter .bar i").forEach(function(b){b.style.width=b.style.width})},50);
+    $("#nx").onclick=function(){level(4)};
+  }
+}
+
+/* LEVEL 4 — Flirting Battle */
+var R4=[
+ {q:"NAURA (Hati Keras Kepala) menyerang: “Gombalan kamu pasti pasaran.”",o:[["“Pasaran? Yang ini edisi terbatas, cuma buat kamu.”",34,"Serangan efektif! Hati Naura goyah 😳"],["“Iya sih, tapi senyum kamu nggak ada tandingannya.”",30,"Kena! Pertahanan retak 💥"],["“Hehe… maaf ya.”",8,"Kurang bertenaga… tapi manisnya lucu 😭"]]},
+ {q:"NAURA bertahan: “Kamu pasti bilang gitu ke semua orang.”",o:[["“Nggak. Website ini aja cuma ada satu pembuatnya, dan satu penerimanya.”",36,"Critical hit! 🎯"],["“Cuma ke kamu, sisanya ke kucing.”",24,"Absurd tapi berhasil 🐈"],["“Terserah deh.”",3,"Aduh, itu bukan gaya GERDY 🙈"]]},
+ {q:"Serangan terakhir: “Apa sih yang bikin kamu seberani ini?”",o:[["“Sedikit keberanian, banyak ide absurd, dan banyak niat baik.”",40,"ULTIMATE! Hati Naura… luluh (katanya) 💗"],["“Kopi.”",18,"Jujur dan dipahami ☕"],["“Nggak tahu juga 😭”",20,"Polos tapi jujur 🥹"]]}
+];
+function L4(){
+  var i=0,hp=100;
+  (function render(){
+    var q=R4[i];
+    frame(4,'<span class="badge">💘 FLIRTING BATTLE</span><h2>Ronde '+(i+1)+' / '+R4.length+'</h2><div class="boss"><div class="face">🥺</div><div style="flex:1"><div style="font-size:12px;font-weight:800;margin-bottom:5px">HATI NAURA (KERAS KEPALA)</div><div class="hp"><i style="width:'+hp+'%"></i></div></div></div><div class="q">'+q.q+'</div>'+
+      q.o.map(function(t,k){return'<button class="opt" data-k="'+k+'">'+t[0]+"</button>"}).join("")+'<div id="fb"></div>');
+    document.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){
+      var k=+b.dataset.k,o=q.o[k];document.querySelectorAll(".opt").forEach(function(x){x.disabled=true});b.classList.add("ok");
+      hp=Math.max(0,hp-o[1]);$(".hp i").style.width=hp+"%";addXp(o[1]);S.flirt+=o[1];
+      var r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top,18);
+      $("#fb").innerHTML='<div class="fb">'+o[2]+" (−"+o[1]+" HP)</div><button class=\"btn\" id=\"nx\">"+(i<R4.length-1?"Ronde berikutnya ➜":"Hadapi misi terakhir ➜")+"</button>";
+      $("#nx").onclick=function(){i++;if(i<R4.length)render();else level(5)};
+    }});
+  })();
+}
+
+/* LEVEL 5 — Real-Life Mission */
+var FOOD=["Bakso","Seblak","Martabak","Es krim","Sushi","Ayam geprek","Dessert","Bebas, GERDY ikut"];
+var ACT=["Nongkrong di kafe","Jalan sore","Nonton film","Foto-foto","Main arcade","Cari jajanan"];
+function L5(){
+  frame(5,'<span class="badge">🎯 REAL-LIFE MISSION</span><h2>Misi terakhir: dunia nyata</h2><p class="sub">Semua level sudah kamu lewati. Sekarang GERDY mau tanya dengan sopan dan sedikit gugup:</p><div class="fb" style="font-size:16px;font-weight:700;line-height:1.55">“NAURA, mau nggak kita ketemu dan jalan bareng? Santai aja, tanpa tekanan. Kamu yang pilih waktunya, tempatnya, makanannya, dan kegiatannya.” 🥹</div><div class="row"><button class="btn" id="yes">Boleh, aku mau 💗</button><button class="btn ghost" id="think">Mikir dulu ya 🙈</button></div>');
+  $("#yes").onclick=form;
+  $("#think").onclick=function(){
+    frame(5,'<span class="badge">🎯 MISI DITUNDA</span><h2>Tidak apa-apa 💜</h2><p class="sub">Kamu boleh mikir dulu sepuas-puasnya, tanpa tekanan. Kalau mau, kabari GERDY dengan satu pesan singkat ya.</p><a class="btn wa" id="wa2" target="_blank" rel="noopener" href="'+wa("Hai GERDY, aku sudah main website-nya 😄 Aku mau mikir dulu ya soal ketemuan, nanti aku kabari. Makasih sudah bikin ini 💗")+'">Kabari GERDY via WhatsApp</a><div><button class="btn ghost" id="back">⬅ Kembali ke ajakan</button></div>');
+    $("#back").onclick=L5;
+  };
+}
+function wa(t){return"https://wa.me/"+WA+"?text="+encodeURIComponent(t)}
+function chipsHTML(id,arr){return'<div class="chips" id="'+id+'">'+arr.map(function(a){return'<button type="button">'+a+"</button>"}).join("")+"</div>"}
+function bindChips(id){var c=document.getElementById(id);c.querySelectorAll("button").forEach(function(b){b.onclick=function(){c.querySelectorAll("button").forEach(function(x){x.classList.remove("sel")});b.classList.add("sel");sfx(700)}})}
+function form(){
+  frame(5,'<span class="badge">📝 FORM RENCANA KETEMUAN</span><h2>Kamu yang tentukan 💗</h2>'+
+   '<label class="f">📅 Tanggal</label><input type="date" id="fd">'+
+   '<label class="f">🕒 Waktu</label><input type="time" id="ft">'+
+   '<label class="f">📍 Lokasi</label><input type="text" id="fl" placeholder="Contoh: kafe dekat kampus" maxlength="80">'+
+   '<label class="f">🍜 Makanan / minuman</label>'+chipsHTML("cf",FOOD)+
+   '<label class="f">🎈 Aktivitas</label>'+chipsHTML("ca",ACT)+
+   '<label class="f">💌 Pesan untuk GERDY (opsional)</label><textarea id="fm" rows="3" maxlength="200" placeholder="Boleh kosong…"></textarea>'+
+   '<div class="row"><button class="btn" id="mk">Buat lembar jawaban ➜</button></div>');
+  bindChips("cf");bindChips("ca");
+  var td=new Date();td.setMinutes(td.getMinutes()-td.getTimezoneOffset());$("#fd").min=td.toISOString().slice(0,10);
+  $("#mk").onclick=function(){
+    var f={d:$("#fd").value,t:$("#ft").value,l:$("#fl").value.trim(),f:(document.querySelector("#cf .sel")||{}).textContent,a:(document.querySelector("#ca .sel")||{}).textContent,m:$("#fm").value.trim()};
+    if(!f.d||!f.t||!f.l||!f.f||!f.a){toast("Lengkapi dulu tanggal, waktu, lokasi, makanan & aktivitas ya 💗");return}
+    S.form=f;addXp(100);report();
+  };
+}
+function fmtDate(v){try{return new Date(v+"T00:00:00").toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}catch(e){return v}}
+function waText(){var f=S.form;
+  return "💗 AGENT NAURA — MISSION REPORT 💗\n\nMisi: Ketemuan di dunia nyata\nStatus: DITERIMA ✅\n\n📅 Tanggal: "+fmtDate(f.d)+"\n🕒 Waktu: "+f.t+"\n📍 Lokasi: "+f.l+"\n🍜 Makanan: "+f.f+"\n🎈 Aktivitas: "+f.a+(f.m?"\n💌 Pesan: "+f.m:"")+"\n\n⭐ XP: "+S.xp+"\n🔬 Kecocokan (hiburan): "+S.score+"%\n\nDikirim dari NAURA'S LITTLE UNIVERSE";}
+function report(){
+  var f=S.form;$("#pb").style.width="100%";
+  frame(5,'<span class="badge">🏆 MISI SELESAI</span><div class="report" id="rp"><h3>💗 AGENT NAURA<br>MISSION REPORT</h3><dl>'+
+    "<dt>TANGGAL</dt><dd>"+esc(fmtDate(f.d))+"</dd><dt>WAKTU</dt><dd>"+esc(f.t)+"</dd><dt>LOKASI</dt><dd>"+esc(f.l)+"</dd><dt>MAKANAN</dt><dd>"+esc(f.f)+"</dd><dt>AKTIVITAS</dt><dd>"+esc(f.a)+"</dd>"+(f.m?"<dt>PESAN</dt><dd>"+esc(f.m)+"</dd>":"")+
+    "<dt>XP / KECOCOKAN</dt><dd>⭐ "+S.xp+" / "+S.score+"% (hiburan)</dd></dl></div>"+
+    '<p class="sub" style="margin-top:14px">Tekan tombol hijau untuk mengirim lembar ini ke WhatsApp GERDY. Kamu juga bisa menyimpannya sebagai gambar.</p>'+
+    '<div class="row"><a class="btn wa" target="_blank" rel="noopener" href="'+wa(waText())+'">Kirim ke WhatsApp GERDY 💚</a><button class="btn alt" id="png">Unduh PNG 🖼</button><button class="btn ghost" id="again">Main lagi 🔁</button></div>');
+  var r=$("#rp").getBoundingClientRect();burst(r.left+r.width/2,r.top+40,40);
+  $("#png").onclick=png;$("#again").onclick=function(){S={xp:0,picks:0,flirt:0,score:0,form:{}};addXp(0);level(1)};
+}
+function png(){
+  var f=S.form,c=document.createElement("canvas");c.width=800;c.height=1100;var x=c.getContext("2d");
+  var g=x.createLinearGradient(0,0,800,1100);g.addColorStop(0,"#2a0a5e");g.addColorStop(1,"#c2186f");x.fillStyle=g;x.fillRect(0,0,800,1100);
+  x.fillStyle="#fff";x.textAlign="center";x.font="bold 44px sans-serif";x.fillText("💗 AGENT NAURA 💗",400,110);x.font="bold 34px sans-serif";x.fillText("MISSION REPORT",400,160);
+  x.textAlign="left";var y=250;
+  function line(k,v){x.fillStyle="#ffb3dc";x.font="bold 24px sans-serif";x.fillText(k,70,y);y+=40;x.fillStyle="#fff";x.font="30px sans-serif";
+    var w=String(v).split(" "),ln="";w.forEach(function(t){var tt=ln?ln+" "+t:t;if(x.measureText(tt).width>660){x.fillText(ln,70,y);y+=40;ln=t}else ln=tt});x.fillText(ln,70,y);y+=62}
+  line("TANGGAL",fmtDate(f.d));line("WAKTU",f.t);line("LOKASI",f.l);line("MAKANAN",f.f);line("AKTIVITAS",f.a);if(f.m)line("PESAN",f.m);line("XP / KECOCOKAN",S.xp+" / "+S.score+"% (hiburan)");
+  x.textAlign="center";x.fillStyle="#ffd6ec";x.font="22px sans-serif";x.fillText("Dibuat oleh GERDY — NAURA'S LITTLE UNIVERSE",400,1050);
+  c.toBlob(function(b){var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="mission-report-naura.png";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000);toast("Gambar tersimpan 💗")});
+}
+
+/* ---------- start ---------- */
+initGL();startLoop();
+if(reduce){gl.spin=.2;finalIntro()}else runIntro();
+})();
+</script>
+</body>
+</html>
